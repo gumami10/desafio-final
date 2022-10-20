@@ -7,7 +7,8 @@ const cartLocators = {
     mainAddButton: '.infor > .groups-button > .add-cart > .button',
     closeSummaryButton: '.close > .fa',
     goToCartButton: '.woocommerce-message > .button',
-    productsTable: '.cart_item'
+    productsTable: '.cart_item',
+    cartDiscountSummary: '.cart-discount'
 }
 
 

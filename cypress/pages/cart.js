@@ -25,15 +25,31 @@ class CartPage {
         cy.get(cartLocators.colorButton).click()
     }
 
-    AddSomeItemsToCart(max) {
-        cy.intercept('https://syndication.twitter.com/**', {})
-        cy.visit('/product/macbook-air-m3/')
-        this.addProductToCart()
-        cy.visit('/product/macbook-air-m1-4/')
-        this.addProductToCart()
-        cy.visit('/product/teste_01/')
-        this.addProductToCart() 
+    AddSomeItemsToCart(products) {
+        cy.intercept('https://sndication.twitter.com/**', {})
+        products.forEach(product => {
+            cy.visit('/product/' + product)
+            this.addProductToCart()          
+        })
     }
+
+    AddItemToCartManyTimes(product, times) {
+        cy.intercept('https://sndication.twitter.com/**', {})
+        cy.visit('/product/' + product)
+        this.selectColor()
+        this.selectSize()
+        this.typeQuantity(times)
+        this.addProductToCart()
+    }
+
+    checkIfCouponExists() {
+        cy.get(cartLocators.cartDiscountSummary).should('exist')
+    }
+
+    shouldNotHaveAddedItemsToCart() {
+        cy.get(cartLocators.goToCartButton).should('not.exist')
+    }
+    
 
     goToCart() {
         cy.get(cartLocators.goToCartButton).click()
